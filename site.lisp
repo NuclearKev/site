@@ -20,11 +20,11 @@
       *dispatch-table*)
 (push (create-folder-dispatcher-and-handler
        "/images/"
-       "/Users/kdb/personal-site/img/")
+       "img/")
       *dispatch-table*)
 (push (create-folder-dispatcher-and-handler
        "/styles/"
-       "/Users/kdb/personal-site/styles/")
+       "styles/")
       *dispatch-table*)
 (push (create-prefix-dispatcher
        "/factorial.htm"
@@ -107,8 +107,9 @@ NAME and push it into our list of games."
                                  "&lt;kdb4@openmailbox.org&gt;"))
                    (:text :class "email"
                        (fmt "Last time modified: ~A"
-                            (local-time:format-timestring ;needs fixed
+                            (local-time:format-timestring
                              nil
+                             (local-time:now)
                              :format *time-format*)))
                    (:a :href "http://www.common-lisp.net"
                        (:img :src "/images/made-with-lisp-logo.jpg"
