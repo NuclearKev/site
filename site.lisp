@@ -128,7 +128,9 @@ NAME and push it into our list of games."
 (define-easy-handler (home :uri "/") ()
   (standard-page
       (:title "Kevin \"The Nuclear\" Bloom's Secret Lair!")
-    (:p "This site is pretty empty right now... I'm in the process of moving in. ")
+    (:p "This site is pretty empty right now... I'm in the process of moving in. "
+        (:br)
+        "Parden the slowness, I'm running on a very old Raspberry Pi")
     (:label "Stuff to do:"
     (:ol
      (:li "HTTPS")
@@ -143,9 +145,6 @@ NAME and push it into our list of games."
   (standard-page
       (:title "About Me")
     (:p "I'm just an Internet kid who's dad left him not once, not twelve, but a dozen times. Ask me anytime.")))
-
-
-
 
 (define-easy-handler (retro-games :uri "/retro-games") ()
   (standard-page
@@ -173,26 +172,30 @@ NAME and push it into our list of games."
 (defvar *output* 0)
 
 (defun factorial-calc (x)
-  (if (= 1 x)
-      1
-      (* x (factorial-calc (1- x)))))
+  (cond
+    ((zerop x)
+     1)
+    ((= 1 x)
+     1)
+    (t
+     (* x (factorial-calc (1- x))))))
 
 (define-easy-handler (factorial :uri "/factorial") ()
   (standard-page (:title "Take factorial")
     (:h1 "Take factorial")
     (:form :action "/factorial/calculate" :method "post" :id "factor"
            (:p "Input number" (:br)
-               (:input :type "number" :name "x" :class "txt"))
+               (:input :type "number" :name "x" :class "txt" :required t))
            (:p (:input :type "submit" :value "Submit" :class "btn"))
            (:p "Output" (:br)
                (:textarea :cols "200" :rows "40" (fmt "~d" *output*))))))
 
 (define-easy-handler (calc :uri "/factorial/calculate") (x)
   (let ((reasonable-x (parse-integer x)))
-    (if (or
-         (or (null x) (zerop (length x)))
-         (> reasonable-x 50001))
-        (setf *output* "To prevent exhaustion, I limit this to 50,000!")
+    (if (or (null x)
+            (zerop (length x))
+            (> reasonable-x 10001))        ;While on the slow pi, mabe 50,000 on the newer?
+        (setf *output* "To prevent exhaustion, I've limited this to 10,000!")
         (setf *output* (factorial-calc reasonable-x))))
   (redirect "/factorial"))
 
