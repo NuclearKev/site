@@ -194,6 +194,7 @@ NAME and push it into our list of games."
   (let ((reasonable-x (parse-integer x)))
     (if (or (null x)
             (zerop (length x))
+            (< reasonable-x 0)
             (> reasonable-x 10001))        ;While on the slow pi, mabe 50,000 on the newer?
         (setf *output* "To prevent exhaustion, I've limited this to 10,000!")
         (setf *output* (factorial-calc reasonable-x))))
