@@ -1,3 +1,4 @@
+
 # site
 My site code
 
@@ -7,7 +8,7 @@ sbcl --load site.lisp
 
 (sb-ext:save-lisp-and-die "start-server" :toplevel #'start-server :executable t)
 
-screen 
+screen
 
 sudo ./start-server
 

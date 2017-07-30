@@ -110,6 +110,10 @@ input.btn {
 	padding: 2px 4px 2px 4px;
 }
 
+a:link {
+    text-decoration:none;
+}
+
 a:hover {
 	border-top: 1px solid #000000;
 	border-left: 1px solid #000000;
